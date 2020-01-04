@@ -44,7 +44,6 @@
         <FileName>gameScreen.asm</FileName>
         <FileName>gameLines.asm</FileName>
         <FileName>_Constants.asm</FileName>
-        <FileName>gameScore.asm</FileName>
         <FileName>gameInput.asm</FileName>
         <FileName>gameFlow.asm</FileName>
         <FileName>gfPlay.asm</FileName>
@@ -87,7 +86,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -147,17 +146,6 @@
         </SourceFile>
         <SourceFile>
             <Name>gameLines.asm</Name>
-            <PrgName />
-            <FileType>2</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>gameScore.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>

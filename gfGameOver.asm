@@ -43,15 +43,13 @@ GameOverInitialise
         sta drawCharacter
         lda #20
         sta linesLeft
-        ldx #12
-        ldy #19
-        jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_VVA 12, 19, scnPtr
         lda #GAMEOVER_FILLWELL
         sta gameOverStatus
         rts
 
 GameOverFillWell
-        jsr gsClearLine
+        jsr gsPrintLine
         dec linesLeft
         beq @skip
         rts
@@ -60,15 +58,13 @@ GameOverFillWell
         sta drawCharacter
         lda #20
         sta linesLeft
-        ldx #12
-        ldy #19
-        jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_VVA 12, 19, scnPtr
         lda #GAMEOVER_CLEARWELL
         sta gameOverStatus
         rts
 
 GameOverClearWell
-        jsr gsClearLine
+        jsr gsPrintLine
         dec linesLeft
         beq @skip
         rts

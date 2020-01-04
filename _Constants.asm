@@ -8,6 +8,7 @@ LINES_PER_LEVEL         = 2     ;for testing, is 10 for actual game
 DROP_DELAY_CHANGE       = 10
 DEFAULT_DROP_DELAY      = 70
 DELAY                   = 10
+INPUT_DELAY             = 7
 
 KEY_LEFT                = 47
 KEY_RIGHT               = 44
@@ -18,7 +19,6 @@ KEY_PAUSE               = 41
 KEY_RESET               = 4
 NOKEY                   = 64
 NOINPUT                 = 253
-INPUT_DELAY             = 7
 
 JOY_UP                  = %00000001
 JOY_DOWN                = %00000010

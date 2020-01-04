@@ -15,9 +15,13 @@ currentFlashDelay       byte FLASH_DELAY
 lineFlashFlag           byte 00
 totalFlashDelay         byte 00
 currentLineIndex        byte 00
-
 gameLevel               byte 00, 00
 levelLinesCounter       byte 00
+score                   byte 00, 00, 00
+addition                byte 00, 00, 00
+lineScore1              byte $00, $00, $00, $00
+linescore2              byte $00, $01, $03, $12
+lineScore3              byte $40, $00, $00, $00
 
 ;-------------------------------------------------------------------------------
 ; gameLines Subroutines
@@ -29,10 +33,7 @@ glCheckLines
         lda #0
         sta linesMade
         sta currentRow
-
-        ldx #12
-        ldy #0
-        jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_VVA 12, 0, scnPtr
 
         ldx #0
 readStart
@@ -72,7 +73,6 @@ nextRow
 readDone
         lda linesMade
         beq @skip
-
         lda #FLASH_TIME
         sta totalFlashDelay
 @skip
@@ -104,7 +104,8 @@ updateLine
         lda lineRowNumbers,y
         tay
         ldx #12
-        jsr gsSetScreenPointer
+        ;jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_A scnPtr
         
         pla
         tax
@@ -112,7 +113,6 @@ updateLine
         ldy #0
         lda lineFlashFlag
         bne hide
-; this show/hide bit can probably be combined
 show
         lda madeLinesData,x
         sta (scnPtr),y
@@ -163,7 +163,8 @@ setPointers
 glSetLinePointers
         ldx #12
         dey
-        jsr gsSetScreenPointer
+        ;jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_A scnPtr
         lda scnPtr
         sta scnPtr2
         lda scnPtrHi
@@ -202,10 +203,8 @@ glMoveLineData
 
         jmp @startloop
 @skip
-        ldx #12
-        ldy #0
-        jsr gsSetScreenPointer
-        
+        LIBSCREEN_SET_POINTER_VVA 12, 0, scnPtr
+
         ldy #0
         lda #SPACE
 @loop2
@@ -238,7 +237,7 @@ glProcessLinesMade
         beq @continue
         rts
 @continue
-        jsr gscAddLineScore
+        jsr glAddLineScore
         jsr glRemoveLines
 
         lda levelLinesCounter
@@ -284,4 +283,24 @@ glIncreaseLevel
 @skip
         sta fallDelay
         sta fallDelayTimer
+        rts
+
+
+; >>> glAddLineScore <<<
+; Calculate score for number of lines cleared
+glAddLineScore
+        ldy linesMade
+        dey
+        lda lineScore1,y
+        sta addition
+        lda lineScore2,y
+        sta addition+1
+        lda lineScore3,y
+        sta addition+2
+
+        ldx currentLevel
+@loop
+        LIBMATHS_BCD_ADD_24BIT_AAA score, addition, score
+        dex
+        bpl @loop
         rts

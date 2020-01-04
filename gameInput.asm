@@ -60,7 +60,6 @@ giGetJoyInput
         lda CIAPRA
         cmp previousJoy
         bne @skip
-
         dec joyDelayCounter
         beq @skip
         lda #NOINPUT
@@ -71,13 +70,13 @@ giGetJoyInput
         stx joyDelayCounter
         sta previousJoy
 joyUp
-        LIBJOY_GETJOY_V JOY_UP
+        LIBINPUT_GETJOY_V JOY_UP
         bne joyDown
         lda #KEY_TURN_COUNTER
         sta inputResult
         rts
 joyDown
-        LIBJOY_GETJOY_V JOY_DOWN
+        LIBINPUT_GETJOY_V JOY_DOWN
         bne joyLeft
         lda #KEY_DOWN
         sta inputResult
@@ -85,19 +84,19 @@ joyDown
         stx joyDelayCounter
         rts
 joyLeft
-        LIBJOY_GETJOY_V JOY_LEFT
+        LIBINPUT_GETJOY_V JOY_LEFT
         bne joyRight
         lda #KEY_LEFT
         sta inputResult
         rts
 joyRight
-        LIBJOY_GETJOY_V JOY_RIGHT
+        LIBINPUT_GETJOY_V JOY_RIGHT
         bne joyFire
         lda #KEY_RIGHT
         sta inputResult
         rts
 joyFire
-        LIBJOY_GETJOY_V JOY_FIRE
+        LIBINPUT_GETJOY_V JOY_FIRE
         bne @exit
         lda #KEY_TURN_CLOCK
         sta inputResult
@@ -106,5 +105,3 @@ joyFire
         lda #NOINPUT
         sta inputResult
         rts
-
-

@@ -145,7 +145,7 @@ gbPrintBlock
         lda blockEraseFlag
         eor #1
         sta blockEraseFlag
-        LIBSCREEN_SET_POINTER_AA blockXPos, blockYPos
+        LIBSCREEN_SET_POINTER_AAA blockXPos, blockYPos, scnPtr
 
         ldx currentFrame
         lda frameArrayLo,x
@@ -226,7 +226,7 @@ doBackward
 ; >>> gbCheckBlockSpace <<<
 ; Ensure there is sufficient space to place the block
 gbCheckBlockSpace
-        LIBSCREEN_SET_POINTER_AA blockXPos, blockYPos
+        LIBSCREEN_SET_POINTER_AAA blockXPos, blockYPos, scnPtr
 
         ldx currentFrame
         lda frameArrayLo,x
@@ -272,7 +272,6 @@ gbDropBlock
 @skip
         lda fallDelay
         sta fallDelayTimer
-
         jsr gbPrintBlock
         inc blockYPos
         jsr gbCheckBlockSpace
@@ -302,11 +301,8 @@ gbNewBlock
         pha
         jsr gbSelectBlock                 
         jsr gbPrintBlock
-
         jsr GetRandom
         sta nextBlockID  
-                            
-        lda nextBlockID
         jsr gbSelectBlock
         jsr gbPrintBlock   
 

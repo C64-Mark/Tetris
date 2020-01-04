@@ -91,7 +91,8 @@ gfPlay_Initialise
         sta blockXPos
         lda #1
         sta blockYPos
-        jsr gsSetScreenPointer
+        LIBSCREEN_SET_POINTER_AAA blockXPos, blockYPos, scnPtr
+        ;jsr gsSetScreenPointer
         jsr gbPrintBlock
 
         rts
