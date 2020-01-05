@@ -21,12 +21,15 @@ gfPlay_Update
         jsr gsPrintLines
         jsr gsPrintScore
 
+        lda soundDelayCounter
+        beq @skip_sounddelay
+        dec soundDelayCounter
+@skip_sounddelay
         jsr UpdateRandom
         lda linesMade
         beq nolinesmade
         jsr glProcessLinesMade
         rts
-
 nolinesmade
         jsr giGetInput
         lda inputResult
@@ -40,7 +43,8 @@ nolinesmade
         jsr gbDropBlock
         cmp #2
         bne gfexit
-
+        lda #SND_DROP_BLOCK
+        jsr gSnd_PlaySound
         jsr glCheckLines
         lda linesMade
         bne gfexit
@@ -56,6 +60,9 @@ gfPlay_Initialise
         LIBSCREEN_SET1000_AV SCREENRAM, space
         LIBSCREEN_DISPLAY_SCREEN_AAVV SCN_MAIN, $040A, 21, 21
 
+        lda #SND_TETRIS
+        jsr gSnd_PlaySound
+
         lda #1
         sta gfPlayInit
         sta blockEraseFlag
@@ -67,6 +74,7 @@ gfPlay_Initialise
         sta score
         sta score+1
         sta score+2
+        sta soundDelayCounter
         
         lda #DEFAULT_DROP_DELAY
         ldx currentLevel
@@ -92,7 +100,6 @@ gfPlay_Initialise
         lda #1
         sta blockYPos
         LIBSCREEN_SET_POINTER_AAA blockXPos, blockYPos, scnPtr
-        ;jsr gsSetScreenPointer
         jsr gbPrintBlock
 
         rts

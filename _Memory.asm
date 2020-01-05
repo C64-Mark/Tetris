@@ -9,6 +9,11 @@
 ; $00-$01       Reserved for IO
 ; $03-$8F       Reserved for BASIC
 
+scnPtr          = $03 ;FB
+scnPtrHi        = $04 ;FC
+scnPtr2         = $05 ;FD
+scnPtr2Hi       = $06 ;FE
+
 zpLow           = $BB
 zpHigh          = $BC
   
@@ -16,10 +21,7 @@ KEY_PRESSED     = $CB
               
 ; $90-$FA       Reserved for Kernal
 
-scnPtr          = $FB
-scnPtrHi        = $FC
-scnPtr2         = $FD
-scnPtr2Hi       = $FE
+; FC/FD used by sidplayer
 
 ; $FF           Reserved for Kernal
 
@@ -31,8 +33,15 @@ scnPtr2Hi       = $FE
 ; RAM $0200-$9FFF
 ;-------------------------------------------------------------------------------
 
+HW_IRQ_REG      = $0314 ;Vector: Hardware IRQ Interrupt (inc $0315)
+
 SCREENRAM       = $0400 ;Default screen ram
 SPRPTR0         = $07F8 ;Sprite pointers
+
+SID_INIT        = $1000
+SID_PLAY        = $1003
+*=$1000
+                incbin "sndTetris.sid", $7E
 
 ;character set
 CHARRAM         = 14
@@ -151,10 +160,13 @@ CIAPRA          = $DC00 ;CIA port A
 CIAPRB          = $DC01 ;CIA port B
 DDRA            = $DC02 ;Data direction register port A
 DDRB            = $DC03 ;Data direction register port B
+CIAICR1         = $DC0D ;CIA interrupt control register #1           
 
 ;-------------------------------------------------------------------------------
 ; KERNAL ROM $E000-$FFFF
 ;-------------------------------------------------------------------------------
+
+krnIRQ          = $EA31
 
 krnCHROUT       = $FFD2
 krnGETIN        = $FFE4

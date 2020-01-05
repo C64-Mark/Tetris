@@ -346,6 +346,8 @@ moveBlockLeft
         beq @leftok
         inc blockXPos
 @leftok
+        lda #SND_MOVE_BLOCK
+        jsr gSnd_PlaySound
         jsr gbPrintBlock
         rts
 moveBlockRight
@@ -356,6 +358,8 @@ moveBlockRight
         beq @rightok
         dec blockXPos
 @rightok
+        lda #SND_MOVE_BLOCK
+        jsr gSnd_PlaySound
         jsr gbPrintBlock
 moveBlockDown
         cmp #KEY_DOWN
@@ -369,6 +373,8 @@ moveBlockDown
         sta fallDelayTimer
         rts
 @downok
+        lda #SND_MOVE_BLOCK
+        jsr gSnd_PlaySound
         jsr gbPrintBlock
         lda #1
         sta addition+2
@@ -387,6 +393,8 @@ moveBlockCW
         lda #1
         jsr gbAnimateBlock
 @cwok
+        lda #SND_ROTATE_BLOCK
+        jsr gSnd_PlaySound
         jsr gbPrintBlock
         rts
 moveBlockCCW
@@ -399,6 +407,8 @@ moveBlockCCW
         lda #0
         jsr gbAnimateBlock
 @ccwok
+        lda #SND_ROTATE_BLOCK
+        jsr gSnd_PlaySound
         jsr gbPrintBlock
 @exit
         rts

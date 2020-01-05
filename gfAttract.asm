@@ -41,6 +41,8 @@ gfAttract_Update
 
 gfAttract_Initialise
         LIBSCREEN_SET1000_AV SCREENRAM, space
+        lda #SND_MUSIC_TITLE
+        jsr gSnd_PlaySound
         lda #ATTRACT_TITLE
         sta gameAttractStatus
         rts

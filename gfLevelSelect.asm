@@ -101,6 +101,8 @@ gfLevelSelect_CheckInput
 @startgame
         lda #0
         sta gfLevelSelectInit
+        lda #SND_OPTION
+        jsr gSnd_PlaySound
         lda #GAMEFLOW_PLAY
         sta gameStatus
         rts

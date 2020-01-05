@@ -246,6 +246,14 @@ glProcessLinesMade
         sta levelLinesCounter
         jsr glAddLinesTotal
 
+        lda #SND_LINE
+        ldx linesMade
+        cpx #4
+        bne @lessthanfour
+        lda #SND_TETRIS
+@lessthanfour
+        jsr gSnd_PlaySound 
+
         lda #0
         sta linesMade
 

@@ -46,6 +46,8 @@ GameOverInitialise
         LIBSCREEN_SET_POINTER_VVA 12, 19, scnPtr
         lda #GAMEOVER_FILLWELL
         sta gameOverStatus
+        lda #SND_MUSIC_GAMEOVER
+        jsr gSnd_PlaySound
         rts
 
 GameOverFillWell
